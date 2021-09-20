@@ -2,13 +2,17 @@ using UnityEngine;
 
 namespace MKK.DoodleJumpe.Player
 {
-    public class PlayerController : MonoBehaviour
+    public interface IPlayerRigidBody
+    {
+        public Rigidbody2D GetBody();
+    }
+    public class PlayerController : MonoBehaviour, IPlayerRigidBody
     {
         [SerializeField] private Rigidbody2D _rigidBody;
 
         [SerializeField] private float _movementSpeed = 5;
 
-        private float _input = 0;
+        private float _moveX = 0;
         private Vector2 _playerVelocity;
 
         // Start is called before the first frame update
@@ -16,18 +20,29 @@ namespace MKK.DoodleJumpe.Player
         {
 
         }
-
+        
         // Update is called once per frame
         private void Update()
         {
-            _input = Input.GetAxis("Horizontal") * _movementSpeed;
+            _moveX = Input.GetAxis("Horizontal") * _movementSpeed;
         }
 
         private void FixedUpdate()
         {
             _playerVelocity = _rigidBody.velocity;
-            _playerVelocity.x = _input;
+            _playerVelocity.x = _moveX;
             _rigidBody.velocity = _playerVelocity;
+        }
+
+        void OnBecameInvisible()
+        {
+            Debug.Log("** GameOver");
+            Debug.Break();
+        }
+
+        public Rigidbody2D GetBody()
+        {
+            return _rigidBody;
         }
     }
 }
