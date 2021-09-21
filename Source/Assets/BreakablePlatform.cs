@@ -32,14 +32,14 @@ namespace MKK.DoodleJumpe.Platform
         }
         public override void ApplyPlatformEffect()
         {
-            transform.DOShakePosition(.3f, Vector3.down * .1f, 5);
+            transform.DOPunchPosition(Vector3.down * .3f, .2f, 10, .5f);
             base.ApplyPlatformEffect();
             StartCoroutine(BreakPlatformRoutine());
         }
 
         IEnumerator BreakPlatformRoutine()
         {
-            yield return new WaitForSeconds(.15f);
+            yield return new WaitForSeconds(.1f);
             BreakPlatform();
         }
         private void BreakPlatform()
