@@ -12,7 +12,7 @@ public class LevelGenerator : MonoBehaviour, IDisposable, IUpdateReciever
 
     private void Awake()
     {
-        _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        _screenBounds = Utils.GetScreenXYBoundsInWorldSpace();
     }
 
     void Start()

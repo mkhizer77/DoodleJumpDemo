@@ -14,7 +14,7 @@ public class ScreenBounds : MonoBehaviour
     {
         if (Camera.main == null) { Debug.LogError("Camera.main not found, failed to create edge colliders"); return; }
 
-        var screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        var screenBounds = Utils.GetScreenXYBoundsInWorldSpace();
 
         _leftBound.size = new Vector2(_leftBound.size.x,screenBounds.y*2);
         _leftBound.transform.position = new Vector3(-screenBounds.x, _leftBound.transform.position.y, _leftBound.transform.position.z);
