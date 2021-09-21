@@ -1,3 +1,4 @@
+using MKK.DoodleJumpe.Core;
 using UnityEngine;
 
 namespace MKK.DoodleJumpe.Player
@@ -6,43 +7,54 @@ namespace MKK.DoodleJumpe.Player
     {
         public Rigidbody2D GetBody();
     }
-    public class PlayerController : MonoBehaviour, IPlayerRigidBody
+    public class PlayerController : MonoBehaviour, IPlayerRigidBody, IUpdateReciever, IFixedUpdateReciever
     {
         [SerializeField] private Rigidbody2D _rigidBody;
-
         [SerializeField] private float _movementSpeed = 5;
 
         private float _moveX = 0;
         private Vector2 _playerVelocity;
 
-        // Start is called before the first frame update
-        void Start()
-        {
+        GameController _gameController;
 
+        public void Init(GameController gameController)
+        {
+            _gameController = gameController;
+            _gameController.SubscribeForUpdates(this);
+            _gameController.SubscribeForFixedUpdates(this);
         }
-        
-        // Update is called once per frame
-        private void Update()
+
+        public void Dispose()
+        {
+            _gameController.UnsubscibeForUpdates(this);
+            _gameController.UnsubscibeForFixedUpdates(this);
+        }
+
+        public Rigidbody2D GetBody()
+        {
+            return _rigidBody;
+        }
+
+        public void OnUpdate()
         {
             _moveX = Input.GetAxis("Horizontal") * _movementSpeed;
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate()
         {
             _playerVelocity = _rigidBody.velocity;
             _playerVelocity.x = _moveX;
             _rigidBody.velocity = _playerVelocity;
         }
 
-        void OnBecameInvisible()
+        private void OnBecameInvisible()
         {
-            Debug.Log("** GameOver");
-            Debug.Break();
+            Kill();
         }
 
-        public Rigidbody2D GetBody()
+        private void Kill()
         {
-            return _rigidBody;
+            _gameController.GameOver();
         }
     }
 }
