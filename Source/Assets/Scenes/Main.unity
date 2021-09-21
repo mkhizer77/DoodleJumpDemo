@@ -151,13 +151,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5699144}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62e0276a4cf344af99a5fbfe5e44826a, type: 3}
+  m_Script: {fileID: 11500000, guid: 878390c03d00d4bf9aea4ebe7c3a46c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bounceForce: 20
-  _springRender: {fileID: 0}
-  _normalSpringSprite: {fileID: 21300000, guid: e67f5d4d420cc45148f0b62c39784adc, type: 3}
-  _pressedSpringSprite: {fileID: 21300000, guid: 6c1f7fd45ee31413a80fdeef4908a809, type: 3}
+  _bounceForce: 10
+  _movementAxis: 1
+  _moveUnits: 4.12
+  _moveSpeed: 1
 --- !u!251 &5699146
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5699144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1952313118}
@@ -373,7 +373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &678449488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,9 +788,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8e52b37691e543aea99c38cdf704f5a, type: 3}
+  m_Script: {fileID: 11500000, guid: 345d35bb083504c84908d7d37e8c59ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _leftBound: {fileID: 302499554}
+  _rightBound: {fileID: 1677844465}
 --- !u!1 &992004097
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,6 +826,7 @@ MonoBehaviour:
   - {fileID: 1675619356}
   - {fileID: 1738379952}
   - {fileID: 678449488}
+  - {fileID: 5699145}
   _playerController: {fileID: 823969245}
 --- !u!4 &992004099
 Transform:
@@ -1300,7 +1303,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1738379951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.58, y: -1.73, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 641296793}
