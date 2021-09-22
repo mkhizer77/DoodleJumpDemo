@@ -29,6 +29,7 @@ namespace MKK.DoodleJumpe.Platform
                 _breakableBrickTransforms[i].localPosition = _brickStartLocalPositions[i];
                 _breakableBrickTransforms[i].localEulerAngles = Vector3.zero;
             }
+            base.OnDispose();
         }
         public override void ApplyPlatformEffect()
         {

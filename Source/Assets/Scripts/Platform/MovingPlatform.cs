@@ -12,7 +12,7 @@ namespace MKK.DoodleJumpe.Platform
     }
     public class MovingPlatform : PlatformBase 
     {
-        [SerializeField] private MovementAxis _movementAxis;
+        public MovementAxis MovementAxis;
         [SerializeField] private float _moveUnits = 2;
         [SerializeField] private float _moveSpeed = 2;
 
@@ -32,7 +32,7 @@ namespace MKK.DoodleJumpe.Platform
             _targetMaxPosition = _startPosition;
             _targetMinPosition = _startPosition;
 
-            if(_movementAxis == MovementAxis.Horizontal) {
+            if(MovementAxis == MovementAxis.Horizontal) {
                 _targetMaxPosition.x = (_startPosition.x + _moveUnits / 2);
                 _targetMinPosition.x = (_startPosition.x - _moveUnits / 2);
             }
@@ -48,7 +48,7 @@ namespace MKK.DoodleJumpe.Platform
 
         public override void OnDispose()
         {
-            _movementTween.Kill();
+            base.OnDispose();
         }
 
         public override void ApplyPlatformEffect()

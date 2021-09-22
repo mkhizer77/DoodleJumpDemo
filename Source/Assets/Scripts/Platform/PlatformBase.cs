@@ -1,4 +1,6 @@
-﻿using MKK.DoodleJumpe.Player;
+﻿using MKK.DoodleJumpe.Utility.Pool;
+using MKK.DoodleJumpe.Player;
+using MKK.DoodleJumpe.Core;
 using DG.Tweening;
 using UnityEngine;
 
@@ -8,21 +10,24 @@ namespace MKK.DoodleJumpe.Platform
     {
         [SerializeField] private float _bounceForce = 10f;
 
-        private IPlayerRigidBody _playerRigidBody;
-
-        public void Init(Vector3 spawnPosition, IPlayerRigidBody playerRigidBody)
+        private IPlayer _player;
+        private IDespawner _despawner;
+        public void Init(IDespawner despawner, IPlayer player)
         {
-            transform.position = spawnPosition;
-            _playerRigidBody = playerRigidBody;
+            _despawner = despawner;
+            _player = player;
 
             OnInit();
         }
 
         public void Dispose()
         {
-            transform.DOKill();
+            if (isActiveAndEnabled)
+            {
+                transform.DOKill();
 
-            OnDispose();
+                OnDispose();
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -35,9 +40,9 @@ namespace MKK.DoodleJumpe.Platform
 
         public virtual void ApplyPlatformEffect()
         {
-            Vector2 velocity = _playerRigidBody.GetBody().velocity;
+            Vector2 velocity = _player.GetRigidBody().velocity;
             velocity.y = _bounceForce;
-            _playerRigidBody.GetBody().velocity = velocity;
+            _player.GetRigidBody().velocity = velocity;
         }
 
         public virtual void OnInit()
@@ -46,7 +51,15 @@ namespace MKK.DoodleJumpe.Platform
         }
         public virtual void OnDispose()
         {
-            
+            _despawner.DeSpawnPlatform(this);
+        }
+
+        private void OnBecameInvisible()
+        {
+            if(_player.GetY() > transform.position.y)
+            {
+                Dispose();
+            }
         }
     }
 }

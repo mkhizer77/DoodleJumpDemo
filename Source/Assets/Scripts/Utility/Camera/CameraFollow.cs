@@ -1,17 +1,25 @@
 using UnityEngine;
 
-namespace MKK.DoodleJumpe.Player.Camera
+namespace MKK.DoodleJumpe.Utility.Camera
 {
     public class CameraFollow : MonoBehaviour
     {
         [SerializeField] private Transform _targetTransform;
         [SerializeField] private float _smoothDamp  = .5f;
 
+        private Vector3 _cameraStartPosition;
         private Vector3 _cameraTargetPos;
+
+        public void Reset()
+        {
+            transform.position = _cameraStartPosition;
+            _cameraTargetPos = _cameraStartPosition;
+        }
 
         private void Start()
         {
             _cameraTargetPos = transform.position;
+            _cameraStartPosition = _cameraTargetPos;
         }
 
         void LateUpdate()
