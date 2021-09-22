@@ -4,7 +4,7 @@ public static class Utils
 {
     public static Vector2 GetScreenXYBoundsInWorldSpace()
     {
-        var screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
+        Vector2 screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0));
         return screenBounds;
     }
 }

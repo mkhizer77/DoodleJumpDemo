@@ -22,12 +22,8 @@ namespace MKK.DoodleJumpe.Platform
 
         public void Dispose()
         {
-            if (isActiveAndEnabled)
-            {
-                transform.DOKill();
-
-                OnDispose();
-            }
+            transform.DOKill();
+            OnDispose();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

@@ -18,10 +18,20 @@ namespace MKK.DoodleJumpe.Player
 
         private GameController _gameController;
         private float _playerStartY;
+        private float _screenBottomY;
+
+        private Transform _cameraTransform;
 
         void Awake()
         {
             _playerStartY = GetY();
+            var size =  GetComponent<SpriteRenderer>().bounds.max.y - _playerStartY;
+            var screenY = Utils.GetScreenXYBoundsInWorldSpace().y;
+
+            _screenBottomY = -(size + screenY);
+            _rigidBody.isKinematic = true;
+
+            _cameraTransform = Camera.main.transform;
         }
 
         public void Init(GameController gameController)
@@ -36,6 +46,7 @@ namespace MKK.DoodleJumpe.Player
         {
             _moveX = 0;
             _rigidBody.velocity = Vector2.zero;
+            _rigidBody.isKinematic = true;
             _gameController.UnsubscibeForUpdates(this);
             _gameController.UnsubscibeForFixedUpdates(this);
         }
@@ -50,7 +61,15 @@ namespace MKK.DoodleJumpe.Player
         }
         public void OnUpdate()
         {
-            _moveX = Input.GetAxis("Horizontal") * _movementSpeed;
+            if (_gameController.GameState == GameState.GamePlay)
+            {
+                _moveX = Input.GetAxis("Horizontal") * _movementSpeed;
+
+                if (GetY() < (_cameraTransform.position.y +_screenBottomY))
+                {
+                    Kill();
+                }
+            }
         }
 
         public void OnFixedUpdate()
@@ -58,11 +77,6 @@ namespace MKK.DoodleJumpe.Player
             _playerVelocity = _rigidBody.velocity;
             _playerVelocity.x = _moveX;
             _rigidBody.velocity = _playerVelocity;
-        }
-
-        private void OnBecameInvisible()
-        {
-            Kill();
         }
 
         private void Kill()

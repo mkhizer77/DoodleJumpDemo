@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using MKK.DoodleJumpe.Utility.Camera;
 using System.Collections.Generic;
 using MKK.DoodleJumpe.Player;
-using MKK.DoodleJumpe.Utility.Camera;
+using MKK.DoodleJumpe.UI;
+using UnityEngine;
 
 namespace MKK.DoodleJumpe.Core
 {
     public enum GameState
     {
-        MainMenu = 0,
+        GameReady = 0,
         GamePlay = 1,
         GameOver = 2
     }
@@ -16,15 +17,25 @@ namespace MKK.DoodleJumpe.Core
         HashSet<IUpdateReciever> _updateRecievers = new HashSet<IUpdateReciever>();
         HashSet<IFixedUpdateReciever> _fixedUpdateRecievers = new HashSet<IFixedUpdateReciever>();
 
-        [SerializeField] private GameState _gameState;
+        public GameState GameState;
+
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private LevelGenerator _levelGenerator;
+        [SerializeField] private UIController _uIController;
+
         [SerializeField] private CameraFollow _cameraFollow;
 
-       
-        public void StartGame()
+        public void StartPlay()
         {
-            _gameState = GameState.GamePlay;
+            GameState = GameState.GamePlay;
+            _uIController.ShowScreen(ScreenId.GamePlay);
+            _playerController.GetRigidBody().isKinematic = false;
+        }
+
+        public void CreateNewGame()
+        {
+            GameState = GameState.GameReady;
+            _uIController.ShowScreen(ScreenId.MainMenu);
             _cameraFollow.Reset();
             _playerController.Init(this);
             _levelGenerator.Init(this,_playerController);
@@ -32,13 +43,14 @@ namespace MKK.DoodleJumpe.Core
 
         public void GameOver()
         {
-            _gameState = GameState.GameOver;
+            GameState = GameState.GameOver;
+            _uIController.ShowScreen(ScreenId.GameOver);
         }
 
         public void ReStartGame()
         {
             DisposeGame();
-            StartGame();
+            CreateNewGame();
         }
 
         private void DisposeGame()
@@ -81,15 +93,12 @@ namespace MKK.DoodleJumpe.Core
         // Use this for initialization
         void Start()
         {
-            StartGame();
+            CreateNewGame();
         }
 
         // Update is called once per frame
         private void Update()
         {
-            if (_gameState != GameState.GamePlay)
-                return;
-
             foreach(IUpdateReciever updateReciever in _updateRecievers)
             {
                 updateReciever.OnUpdate();

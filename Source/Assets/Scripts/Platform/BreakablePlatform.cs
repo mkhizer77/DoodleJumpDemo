@@ -26,6 +26,10 @@ namespace MKK.DoodleJumpe.Platform
 
             for (int i = 0; i < _breakableBrickTransforms.Length; i++)
             {
+                if (_breakableBrickTransforms[i].GetComponent<Rigidbody2D>())
+                {
+                    Destroy(_breakableBrickTransforms[i].GetComponent<Rigidbody2D>());
+                }
                 _breakableBrickTransforms[i].localPosition = _brickStartLocalPositions[i];
                 _breakableBrickTransforms[i].localEulerAngles = Vector3.zero;
             }
