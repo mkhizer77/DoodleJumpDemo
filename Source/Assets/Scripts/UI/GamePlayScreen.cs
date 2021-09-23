@@ -20,7 +20,7 @@ namespace MKK.DoodleJumpe.UI
             _scoreText.text = score.ToString();
 
             if (!_tweener.IsActive())
-                _tweener = _scoreText.transform.DOPunchScale(1.5f * Vector3.one, .5f);
+                _tweener = _scoreText.transform.DOPunchScale(1.3f * new Vector3(.5f,1,0), .5f,1);
         }
 
         private void OnEnable()

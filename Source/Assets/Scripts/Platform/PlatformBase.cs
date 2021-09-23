@@ -31,6 +31,7 @@ namespace MKK.DoodleJumpe.Platform
             if(collision.relativeVelocity.y <= 0)
             {
                 ApplyPlatformEffect();
+                _player.OnCollision(this);
             }
         }
 

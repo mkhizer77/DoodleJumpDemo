@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MKK.DoodleJumpe.Core;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ namespace MKK.DoodleJumpe.Player
 {
     public interface IPlayer
     {
+        public void OnCollision(Platform.PlatformBase platform);
         public Rigidbody2D GetRigidBody();
         public float GetY();
     }
@@ -21,6 +23,7 @@ namespace MKK.DoodleJumpe.Player
         private float _screenBottomY;
 
         private Transform _cameraTransform;
+        HashSet<Platform.PlatformBase> _platformsAlreadyCollidedWith = new HashSet<Platform.PlatformBase>();
 
         void Awake()
         {
@@ -44,6 +47,7 @@ namespace MKK.DoodleJumpe.Player
 
         public void Dispose()
         {
+            _platformsAlreadyCollidedWith.Clear();
             _moveX = 0;
             _rigidBody.velocity = Vector2.zero;
             _rigidBody.isKinematic = true;
@@ -84,6 +88,14 @@ namespace MKK.DoodleJumpe.Player
             _gameController.GameOver();
         }
 
-        
+        public void OnCollision(Platform.PlatformBase platform)
+        {
+            Handheld.Vibrate();
+            if (!_platformsAlreadyCollidedWith.Contains(platform))
+            {
+                _platformsAlreadyCollidedWith.Add(platform);
+                _gameController.AddScore();
+            }
+        }
     }
 }

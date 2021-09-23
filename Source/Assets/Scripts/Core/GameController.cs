@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MKK.DoodleJumpe.Player;
 using MKK.DoodleJumpe.UI;
 using UnityEngine;
+using DG.Tweening;
 
 namespace MKK.DoodleJumpe.Core
 {
@@ -24,11 +25,20 @@ namespace MKK.DoodleJumpe.Core
         [SerializeField] private UIController _uIController;
 
         [SerializeField] private CameraFollow _cameraFollow;
+        private int _score = 0;
+
+        private GamePlayScreen _gamePlayScreen;
+        private GameOverScreen _gameOverScreen;
 
         public void StartPlay()
         {
             GameState = GameState.GamePlay;
             _uIController.ShowScreen(ScreenId.GamePlay);
+
+            if (_gamePlayScreen == null)
+            {
+                _gamePlayScreen = _uIController.CurrentScreen as GamePlayScreen;
+            }
             _playerController.GetRigidBody().isKinematic = false;
         }
 
@@ -43,8 +53,17 @@ namespace MKK.DoodleJumpe.Core
 
         public void GameOver()
         {
+            _cameraFollow.enabled = false;
+            _playerController.GetRigidBody().isKinematic = true;
+            Camera.main.DOShakePosition(.5f, 1, 10);
             GameState = GameState.GameOver;
             _uIController.ShowScreen(ScreenId.GameOver);
+
+            if (_gameOverScreen == null)
+            {
+                _gameOverScreen = _uIController.CurrentScreen as GameOverScreen;
+            }
+            _gameOverScreen.UpdateScoreWithAnimation(_score);
         }
 
         public void ReStartGame()
@@ -53,8 +72,15 @@ namespace MKK.DoodleJumpe.Core
             CreateNewGame();
         }
 
+
+        public void AddScore() {
+            _score++;
+            _gamePlayScreen.UpdateScoreWithAnimation(_score);
+        }
+
         private void DisposeGame()
         {
+            _score = 0;
             _playerController.Dispose();
             _levelGenerator.Dispose();
         }

@@ -14,6 +14,7 @@ namespace MKK.DoodleJumpe.Utility.Camera
         {
             transform.position = _cameraStartPosition;
             _cameraTargetPos = _cameraStartPosition;
+            this.enabled = true;
         }
 
         private void Start()
