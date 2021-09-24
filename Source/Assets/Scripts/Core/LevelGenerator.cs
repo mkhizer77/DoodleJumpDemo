@@ -80,7 +80,7 @@ namespace MKK.DoodleJumpe.Core
         public void OnUpdate()
         {
             _playerY = _player.GetY();
-            if (_playerY > _currentSpawnPositon.y || (_currentSpawnPositon.y - _playerY)< (_screenBounds.y * 10)) {
+            if (_playerY > _currentSpawnPositon.y || (_currentSpawnPositon.y - _playerY)< (_screenBounds.y * 5)) {
                 SpawnNextLevelObject();
             }
         }
@@ -106,7 +106,12 @@ namespace MKK.DoodleJumpe.Core
             int nextPlatformId = 0;
 
             float xRange = Utils.GetScreenXYBoundsInWorldSpace().x - .63f;
+
             float randomX = UnityEngine.Random.Range(-xRange,xRange);
+            while (Mathf.Abs(randomX - _currentSpawnPositon.x) > 2f)
+            {
+                randomX = UnityEngine.Random.Range(-xRange, xRange);
+            }
 
             for (int i = _levelPlatform.Length - 1; i >= 0; i--)
             {
@@ -139,6 +144,7 @@ namespace MKK.DoodleJumpe.Core
             SpawnPlatform(nextPlatform,nextObjectPosition);
 
            _currentSpawnPositon.y = nextObjectPosition.y + bumpYAfterSpawn;
+            _currentSpawnPositon.x = nextObjectPosition.x;
         }
     }
 }
