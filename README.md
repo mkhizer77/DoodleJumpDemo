@@ -18,9 +18,9 @@ Other Game Elements :
 
 
 For UI: Unity Canvas is being used  
-* Intro animation (Main Menu screen): Tap To Play text appears when animation is over and then game can be started by tapping the screeen
-* Outro animation, presenting new score at game over 
-* UI feedback shows the number of platforms the character jumped on 
+* Intro animation (MainMenuScreen): Tap To Play text appears when animation is over and then game can be started by tapping the screeen
+* GamePlayScreen: It shows score based on number of platforms player (touched)jumped on, and each platform player touch will only be counted once
+* Outro animation (GameOverScreen), presenting new score at game over 
 
 
 External Assets Used : 
