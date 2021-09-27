@@ -80,7 +80,7 @@ namespace MKK.DoodleJumpe.Core
         public void OnUpdate()
         {
             _playerY = _player.GetY();
-            if (_playerY > _currentSpawnPositon.y || (_currentSpawnPositon.y - _playerY)< (_screenBounds.y * 5)) {
+            if (_playerY > _currentSpawnPositon.y || (_currentSpawnPositon.y - _playerY)< (_screenBounds.y * 10)) {
                 SpawnNextLevelObject();
             }
         }

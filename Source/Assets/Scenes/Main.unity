@@ -778,7 +778,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.005042687, y: -0.1411947}
+  m_Offset: {x: -0.005042672, y: -0.31613347}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -789,7 +789,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5263305, y: 0.6776105}
+  m_Size: {x: 0.5263305, y: 0.32773298}
   m_EdgeRadius: 0
 --- !u!50 &823969244
 Rigidbody2D:
@@ -1086,11 +1086,11 @@ MonoBehaviour:
   - PlatformPrefab: {fileID: 8648567276305592950, guid: 50bb421b7c65045e7ab1491307d94226, type: 3}
     Occurance: 1
   - PlatformPrefab: {fileID: 696057991499808057, guid: 4aadb0a622ccc422685c2f772313e809, type: 3}
-    Occurance: 0.45
+    Occurance: 0.57
   - PlatformPrefab: {fileID: 2962849209079691450, guid: 77f0f0abcf7794272b04338685a0460c, type: 3}
-    Occurance: 0.3
+    Occurance: 0.32
   - PlatformPrefab: {fileID: 8792502906253548075, guid: af157ada5ba2043399616ff0387a00d3, type: 3}
-    Occurance: 0.2
+    Occurance: 0.25
   - PlatformPrefab: {fileID: 8792502906253548075, guid: b26e3b3afb8a14e7bae7d9aec9b7b1df, type: 3}
     Occurance: 0.1
   _spawnOffsetFromBottom: 3

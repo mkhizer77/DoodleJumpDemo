@@ -53,6 +53,7 @@ namespace MKK.DoodleJumpe.Platform
 
         private void OnBecameInvisible()
         {
+            Debug.Log("OnBecameInvisible");
             if(_player.GetY() > transform.position.y)
             {
                 Dispose();
